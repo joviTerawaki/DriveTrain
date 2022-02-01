@@ -30,12 +30,12 @@ public class Robot extends TimedRobot {
   private final SendableChooser<String> m_chooser = new SendableChooser<>();
 
   private CANSparkMax leftFront; // motor controllers
-  private CANSparkMax leftMid; 
+  //private CANSparkMax leftMid; 
   //private CANSparkMax leftBack;
   private WPI_TalonSRX leftBack; // test on old robot 
   private WPI_VictorSPX rightBack; // test on old robot 
   private CANSparkMax rightFront; 
-  private CANSparkMax rightMid; 
+  //private CANSparkMax rightMid; 
   //private CANSparkMax rightBack; 
   private Joystick joystick2; 
   private Joystick joystick; 
@@ -54,18 +54,18 @@ public class Robot extends TimedRobot {
     SmartDashboard.putData("Auto choices", m_chooser);
 
     leftFront = new CANSparkMax(11, MotorType.kBrushless); // CHANGE PORT ID 
-    leftMid = new CANSparkMax(12, MotorType.kBrushless); 
+    //leftMid = new CANSparkMax(12, MotorType.kBrushless); 
     //leftBack = new CANSparkMax(3, MotorType.kBrushless); 
     leftBack = new WPI_TalonSRX(8); // motors needed to test on old robot 
     rightBack = new WPI_VictorSPX(5); // motors needed to test on old robot 
     rightFront = new CANSparkMax(7, MotorType.kBrushless); 
-    rightMid = new CANSparkMax(8, MotorType.kBrushless); 
+    //rightMid = new CANSparkMax(8, MotorType.kBrushless); 
     //rightBack = new CANSparkMax(6, MotorType.kBrushless); 
     joystick2 = new Joystick(1); 
     joystick = new Joystick(0); 
     shifter = new DoubleSolenoid(PneumaticsModuleType.CTREPCM, 1, 6);
 
-    drive = new Drive(leftFront, leftMid, leftBack, rightFront, rightMid, rightBack); 
+    drive = new Drive(leftFront, /*leftMid,*/ leftBack, rightFront, /*rightMid,*/ rightBack); 
     shifterClass = new Shifter(shifter); 
   }
 
