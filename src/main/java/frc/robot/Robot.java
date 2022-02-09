@@ -10,6 +10,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 import edu.wpi.first.wpilibj.DoubleSolenoid;
+import com.kauailabs.navx.frc.AHRS;
 // testing on old robot 
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX; 
 import com.ctre.phoenix.motorcontrol.can.WPI_VictorSPX;
@@ -42,6 +43,7 @@ public class Robot extends TimedRobot {
   private DoubleSolenoid shifter;
   public Drive drive; // drive class object
   public Shifter shifterClass; // shifter class object
+  private AHRS navX; 
 
   /**
    * This function is run when the robot is first started up and should be used for any
@@ -67,6 +69,7 @@ public class Robot extends TimedRobot {
 
     drive = new Drive(leftFront, /*leftMid,*/ leftBack, rightFront, /*rightMid,*/ rightBack); 
     shifterClass = new Shifter(shifter); 
+    navX = new AHRS(); 
   }
 
   /**
@@ -117,6 +120,7 @@ public class Robot extends TimedRobot {
   /** This function is called periodically during operator control. */
   @Override
   public void teleopPeriodic() {
+
     //drive.arcadeDrive(joystick.getX(), -joystick.getY());      // arcade drive
     drive.tankDrive(joystick.getY(), joystick2.getY());          // tank drive
 
