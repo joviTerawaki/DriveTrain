@@ -120,6 +120,7 @@ public class Robot extends TimedRobot {
   /** This function is called periodically during operator control. */
   @Override
   public void teleopPeriodic() {
+    SmartDashboard.putNumber("navX pitch", navX.getPitch());
 
     //drive.arcadeDrive(joystick.getX(), -joystick.getY());      // arcade drive
     drive.tankDrive(joystick.getY(), joystick2.getY());          // tank drive
