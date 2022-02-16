@@ -118,6 +118,7 @@ public class Robot extends TimedRobot {
     driveClass.arcadeDrive(joystick.getX(), -joystick.getY());      // arcade drive
     //drive.tankDrive(joystick.getY(), joystick2.getY());          // tank drive
 
+    /*
     // Button 5(set speed) Button 6(set power) 
     if(joystick.getRawButton(5)) { 
       shifterClass.setSpeed(); 
@@ -125,6 +126,7 @@ public class Robot extends TimedRobot {
     else if(joystick.getRawButton(6)) {
       shifterClass.setPower(); 
     }
+    */
   }
 
   /** This function is called once when the robot is disabled. */
