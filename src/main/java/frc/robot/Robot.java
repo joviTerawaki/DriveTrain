@@ -10,10 +10,10 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 import edu.wpi.first.wpilibj.DoubleSolenoid;
+import com.revrobotics.RelativeEncoder;
 // testing on old robot 
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX; 
 import com.ctre.phoenix.motorcontrol.can.WPI_VictorSPX;
-
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.PneumaticsModuleType;
 
@@ -30,17 +30,14 @@ public class Robot extends TimedRobot {
   private final SendableChooser<String> m_chooser = new SendableChooser<>();
 
   private CANSparkMax leftFront; // motor controllers
-  //private CANSparkMax leftMid; 
-  //private CANSparkMax leftBack;
-  private WPI_TalonSRX leftBack; // test on old robot 
-  private WPI_VictorSPX rightBack; // test on old robot 
+  private CANSparkMax leftBack;
   private CANSparkMax rightFront; 
-  //private CANSparkMax rightMid; 
-  //private CANSparkMax rightBack; 
+  private CANSparkMax rightBack; 
+  private RelativeEncoder driveEncoder; 
   private Joystick joystick2; 
   private Joystick joystick; 
   private DoubleSolenoid shifter;
-  public Drive drive; // drive class object
+  public Drive driveClass; // drive class object
   public Shifter shifterClass; // shifter class object
 
   /**
@@ -54,18 +51,16 @@ public class Robot extends TimedRobot {
     SmartDashboard.putData("Auto choices", m_chooser);
 
     leftFront = new CANSparkMax(11, MotorType.kBrushless); // CHANGE PORT ID 
-    //leftMid = new CANSparkMax(12, MotorType.kBrushless); 
-    //leftBack = new CANSparkMax(3, MotorType.kBrushless); 
-    leftBack = new WPI_TalonSRX(8); // motors needed to test on old robot 
-    rightBack = new WPI_VictorSPX(5); // motors needed to test on old robot 
+    leftBack = new CANSparkMax(3, MotorType.kBrushless); 
     rightFront = new CANSparkMax(7, MotorType.kBrushless); 
-    //rightMid = new CANSparkMax(8, MotorType.kBrushless); 
-    //rightBack = new CANSparkMax(6, MotorType.kBrushless); 
+    rightBack = new CANSparkMax(6, MotorType.kBrushless); 
+    driveEncoder = leftFront.getEncoder(); 
+
     joystick2 = new Joystick(1); 
     joystick = new Joystick(0); 
     shifter = new DoubleSolenoid(PneumaticsModuleType.CTREPCM, 1, 6);
 
-    drive = new Drive(leftFront, /*leftMid,*/ leftBack, rightFront, /*rightMid,*/ rightBack); 
+    driveClass = new Drive(leftFront, leftBack, rightFront, rightBack); 
     shifterClass = new Shifter(shifter); 
   }
 
@@ -117,8 +112,11 @@ public class Robot extends TimedRobot {
   /** This function is called periodically during operator control. */
   @Override
   public void teleopPeriodic() {
-    //drive.arcadeDrive(joystick.getX(), -joystick.getY());      // arcade drive
-    drive.tankDrive(joystick.getY(), joystick2.getY());          // tank drive
+
+    SmartDashboard.putNumber("Left Front Encoder", driveEncoder.getPosition()); 
+
+    driveClass.arcadeDrive(joystick.getX(), -joystick.getY());      // arcade drive
+    //drive.tankDrive(joystick.getY(), joystick2.getY());          // tank drive
 
     // Button 5(set speed) Button 6(set power) 
     if(joystick.getRawButton(5)) { 

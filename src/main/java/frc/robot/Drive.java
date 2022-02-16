@@ -9,9 +9,9 @@ public class Drive {
     private DifferentialDrive differentialDrive; 
 
     // uncomment leftBack and rightBack motor controllers 
-    public Drive(MotorController leftFront, /*MotorController leftMid,*/ MotorController leftBack, MotorController rightFront, /*MotorController rightMid,*/ MotorController rightBack) {
-        leftSide = new MotorControllerGroup(leftFront, /*leftMid,*/ leftBack); 
-        rightSide = new MotorControllerGroup(rightFront, /*rightMid,*/ rightBack); 
+    public Drive(MotorController leftFront, MotorController leftBack, MotorController rightFront, MotorController rightBack) {
+        leftSide = new MotorControllerGroup(leftFront, leftBack); 
+        rightSide = new MotorControllerGroup(rightFront, rightBack); 
         differentialDrive = new DifferentialDrive(leftSide, rightSide); 
     }
 
