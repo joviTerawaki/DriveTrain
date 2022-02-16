@@ -33,4 +33,8 @@ public class Drive {
     public void tankDrive(double dLeftSpeed, double dRightSpeed) {
         differentialDrive.tankDrive(deadzone(dLeftSpeed), deadzone(-dRightSpeed)); 
     }
+
+    public void tankRun(double dLeftSpeed, double dRightSpeed) {
+        differentialDrive.tankDrive(dLeftSpeed, dRightSpeed);
+    }
 }
