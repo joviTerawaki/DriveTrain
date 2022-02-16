@@ -11,7 +11,7 @@ public class Drive {
     // uncomment leftBack and rightBack motor controllers 
     public Drive(MotorController leftFront, MotorController leftBack, MotorController rightFront, MotorController rightBack) {
         leftSide = new MotorControllerGroup(leftFront, leftBack); 
-        rightSide = new MotorControllerGroup(rightFront, rightBack); 
+        rightSide = new MotorControllerGroup(rightFront,  rightBack); 
         differentialDrive = new DifferentialDrive(leftSide, rightSide); 
     }
 
@@ -24,6 +24,10 @@ public class Drive {
 
     public void arcadeDrive(double dSpeed, double dRotation) {
         differentialDrive.arcadeDrive(deadzone(dSpeed), deadzone(-dRotation)); 
+    }
+
+    public void arcadeRun(double dSpeed, double dRotation) {
+        differentialDrive.arcadeDrive(dSpeed, dRotation);
     }
 
     public void tankDrive(double dLeftSpeed, double dRightSpeed) {
