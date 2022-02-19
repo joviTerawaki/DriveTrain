@@ -34,9 +34,7 @@ public class Robot extends TimedRobot {
   private CANSparkMax rightFront; 
   private CANSparkMax rightBack; 
   private RelativeEncoder driveEncoder; 
-  private Joystick joystick2; 
   private Joystick joystick; 
-  private DoubleSolenoid shifter;
   public Drive driveClass; // drive class object
   public Shifter shifterClass; // shifter class object
 
@@ -50,19 +48,16 @@ public class Robot extends TimedRobot {
     m_chooser.addOption("My Auto", kCustomAuto);
     SmartDashboard.putData("Auto choices", m_chooser);
 
-    leftFront = new CANSparkMax(11, MotorType.kBrushless); // CHANGE PORT ID 
+    leftFront = new CANSparkMax(16, MotorType.kBrushless); // CHANGE PORT ID 
     leftBack = new CANSparkMax(3, MotorType.kBrushless); 
-    rightFront = new CANSparkMax(7, MotorType.kBrushless); 
+    rightFront = new CANSparkMax(15, MotorType.kBrushless); 
     rightBack = new CANSparkMax(6, MotorType.kBrushless); 
     driveEncoder = leftFront.getEncoder(); 
 
-    joystick2 = new Joystick(1); 
+    //joystick2 = new Joystick(1); 
     joystick = new Joystick(0); 
-    shifter = new DoubleSolenoid(PneumaticsModuleType.CTREPCM, 1, 6);
-
     driveClass = new Drive(leftFront, leftBack, rightFront, rightBack); 
-    shifterClass = new Shifter(shifter); 
-  }
+    }
 
   /**
    * This function is called every robot packet, no matter the mode. Use this for items like
@@ -115,18 +110,9 @@ public class Robot extends TimedRobot {
 
     SmartDashboard.putNumber("Left Front Encoder", driveEncoder.getPosition()); 
 
-    driveClass.arcadeDrive(joystick.getX(), -joystick.getY());      // arcade drive
+    driveClass.arcadeDrive(-joystick.getX(), joystick.getY());      // arcade drive
     //drive.tankDrive(joystick.getY(), joystick2.getY());          // tank drive
-
-    /*
-    // Button 5(set speed) Button 6(set power) 
-    if(joystick.getRawButton(5)) { 
-      shifterClass.setSpeed(); 
-    }
-    else if(joystick.getRawButton(6)) {
-      shifterClass.setPower(); 
-    }
-    */
+   
   }
 
   /** This function is called once when the robot is disabled. */
